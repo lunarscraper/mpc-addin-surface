@@ -1,0 +1,7 @@
+# This addin, for the shared installer in mpc-vst-plugins (tools/release/addin; the keys are in its docs/ADDINS.md).
+ADDIN_ID=surface
+ADDIN_NAME="MPC surface monitor addin"
+ADDIN_SO=libmpc_surface.so
+ADDIN_CONF=surface.conf
+ADDIN_FILES=""
+ADDIN_DONE="Press buttons on the device: every message of the control surface is written to surface.log in this folder."

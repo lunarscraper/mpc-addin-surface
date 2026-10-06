@@ -1,0 +1,17 @@
+# surface.conf: settings of the surface monitor addin. Read once when MPC starts; restart MPC after a change.
+# Lines are key=value; '#' starts a comment.
+
+# 0 switches the addin off without uninstalling it (every hook is then a plain pass-through).
+enabled=1
+
+# Log file. "auto" = surface.log in the addin's folder; empty = no log.
+log=auto
+
+# Only log inputs whose ALSA name contains this text (e.g. hw:0). Empty = every raw MIDI input MPC opens.
+device=
+
+# Pad pressure (poly and channel aftertouch) floods the log while a pad is held; 1 logs it too.
+log_pressure=0
+
+# At most this many lines per second; what is over is counted and reported in one line.
+max_lines=200
