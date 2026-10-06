@@ -24,8 +24,8 @@ jobs:
       version: ${{ inputs.version }}
       tools_ref: a4b8f861d07153a2b387d7520331f532f7247502
       package_dir: build/package
-      build: tools/build_armhf.sh
-      host_test: SKIP_INSTALL=1 tools/test_host.sh
+      build: sh tools/build_armhf.sh
+      host_test: SKIP_INSTALL=1 sh tools/test_host.sh
       about: "Logs every message of the built-in control surface (buttons, pads, knobs). Monitoring only."
       license: MIT
       dry_run: ${{ inputs.dry_run }}
