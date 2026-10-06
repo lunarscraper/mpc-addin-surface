@@ -1,4 +1,4 @@
-# surface.conf: settings of the surface monitor addin. Read once when MPC starts; restart MPC after a change.
+# surface.conf: settings of the surface addin. Read once when MPC starts; restart MPC after a change.
 # Lines are key=value; '#' starts a comment.
 
 # 0 switches the addin off without uninstalling it (every hook is then a plain pass-through).
@@ -7,11 +7,36 @@ enabled=1
 # Log file. "auto" = surface.log in the addin's folder; empty = no log.
 log=auto
 
-# Only log inputs whose ALSA name contains this text (e.g. hw:0). Empty = every raw MIDI input MPC opens.
-device=
-
+# ---- monitor ----
+# 1 logs every message the control surface sends (buttons, pads, knobs). 0 once everything works.
+log_surface=1
 # Pad pressure (poly and channel aftertouch) floods the log while a pad is held; 1 logs it too.
 log_pressure=0
-
 # At most this many lines per second; what is over is counted and reported in one line.
 max_lines=200
+
+# ---- remote: an external MIDI controller presses buttons ----
+# 0 = monitor only; nothing is ever injected.
+remote=1
+# The control surface: the raw MIDI input whose ALSA name contains this text.
+surface=hw:0
+# Listen only to MIDI devices whose name contains this text (e.g. EC4). Empty = every hardware MIDI device.
+source=
+# Never listen to devices whose name contains one of these (the surface itself must stay in this list).
+exclude=Force,MPC,Through
+# 1 logs the notes and controllers that arrive from those devices (to find out what a controller sends).
+log_external=1
+# A tap holds the button this long; pause between the steps of an action (milliseconds).
+tap_ms=40
+gap_ms=15
+
+# ---- triggers ----
+#   cc <channel> <number> = <action>     fires when the controller's value is 64 or more
+#   note <channel> <number> = <action>   fires on note-on
+# Actions: menu matrix note mixer edit launch stepseq
+#          trackedit:<code>              hold Edit and tap the Track Select with that code (hex)
+#          tap:<code> down:<code> up:<code>   any button by its code (hex), several steps separated by spaces
+# If this file has no trigger line, these three defaults apply:
+cc 16 102 = matrix
+cc 16 103 = mixer
+cc 16 104 = trackedit:60

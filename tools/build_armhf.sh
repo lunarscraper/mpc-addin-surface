@@ -1,7 +1,7 @@
 #!/bin/sh
 # Build libmpc_surface.so for MPC OS / Force (armv7 hard-float; glibc <= 2.31, the oldest supported MPC OS) in a Debian
 # bullseye container, then check the result: no symbol newer than GLIBC_2.31, no DT_NEEDED on libasound (it is
-# resolved at run time from what MPC already loaded), and only the three hooks exported.
+# resolved at run time from what MPC already loaded), and only the hooks exported.
 # Needs Docker with arm/v7 emulation (qemu-user binfmt). Output: build/armhf/libmpc_surface.so, and build/package/
 # (the .so, the default surface.conf and addin.manifest) for tools/release.sh.
 set -eu
@@ -31,7 +31,7 @@ if [ "$(printf '%s\nGLIBC_2.31\n' "$max" | sort -V | tail -n1)" != GLIBC_2.31 ];
   echo "FAIL: needs $max; the oldest supported MPC OS has glibc 2.31" >&2; exit 1
 fi
 echo "exports:"; sed 's/^/  /' "$OUT/exports.txt"
-unexpected=$(grep -Ev '^snd_rawmidi_(open|close|read)$' "$OUT/exports.txt" || true)
+unexpected=$(grep -Ev '^snd_rawmidi_(open|close|read|nonblock|poll_descriptors|poll_descriptors_count|poll_descriptors_revents)$' "$OUT/exports.txt" || true)
 if [ -n "$unexpected" ]; then echo "FAIL: unexpected exports: $unexpected" >&2; exit 1; fi
 ls -l "$OUT/libmpc_surface.so"
 echo "armhf build OK"

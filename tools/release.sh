@@ -9,5 +9,5 @@ cd "$(dirname "$0")/.."
 MPC_VST="${MPC_VST:-../mpc-vst-plugins}"
 REPO="${REPO:-lunarscraper/mpc-addin-surface}"
 python3 "$MPC_VST/tools/release_addin.py" --dir build/package --version "$1" --repo "$REPO" --license MIT \
-  --about "Logs every message of the built-in control surface (buttons, pads, knobs). Monitoring only." -o dist
+  --about "External MIDI controllers press buttons of the built-in control surface (e.g. switch Matrix, Mixer, Track Edit); logs what the surface sends." -o dist
 python3 "$MPC_VST/tools/catalog_check.py" dist/*-"$1"-mpc-armv7.zip --catalog --expect-id surface --expect-repo "$REPO"

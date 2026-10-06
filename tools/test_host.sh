@@ -47,8 +47,8 @@ grep -q "config $tmp/addin/surface.conf" "$tmp/addin/surface.log" && ! grep -q "
   { echo "FAIL: settings and log next to the .so"; cat "$tmp/addin/surface.log" 2>/dev/null; exit 1; }
 echo "ok   settings and log next to the .so"
 # enabled=0: a plain pass-through
-printf 'enabled=0\nlog=%s\n' "$tmp/off.log" > "$tmp/surface.conf"
+printf "enabled=0\nlog=%s\n" "$tmp/off.log" > "$tmp/surface.conf"
 run "$B/bin/MPC" "$tmp/none.log" inert
 echo "ok   enabled=0 is inert"
-if [ "${SKIP_INSTALL:-0}" != 1 ]; then tools/test_install.sh; fi
+if [ "${SKIP_INSTALL:-0}" != 1 ]; then bash tools/test_install.sh; fi
 echo "all host tests passed"
